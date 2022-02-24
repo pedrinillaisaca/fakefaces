@@ -1,0 +1,57 @@
+notas importantes
+sudo add-apt-repository ppa:jonathonf/python-3.6 ADICIONAR UN REPO
+
+ELIMINACION DE REPOSITORIOS 
+sudo add-apt-repository --remove ppa:NOMBRE-PPA
+sudo apt-get update && sudo apt-get dist-upgrade
+
+REPOSITORIOS ADICIONADOS 
+$ sudo add-apt-repository ppa:deadsnakes/ppa
+$ sudo apt update
+$ sudo apt install python3.6
+
+CAMBIAR VERSIONES DE PYTHON 
+https://lignux.com/como-instalar-python-3-6-1-en-ubuntu-16-04-lts/
+
+PAGINA PARA INSTALAR EL AMBIENTE DE AISLADO
+Instalar Virtualenv usando pip3
+https://help.dreamhost.com/hc/es/articles/115000695551-Instalar-y-usar-virtualenv-con-Python-3
+
+DATO IMPORTANTE }
+SE CAMBIO LA VERSION DE NUMPY A numpy==1.15.1
+COMANDOS DOCKER 
+* docker ps ó docker ps -a SIRVE PARA VER LOS PROCESOS EN EJECUCION O COMO UNA ESPECIE DE HISTORIAL DE LOS PROCESOS 
+* docker images SIRVE PARA VER LAS IMAGENES QUE TENGO EN DOCKER 
+* docker stop num_id PARA CONTENEDOR
+* docker start (id 3dijitos) EL CONTENEDOR SE PONE EN MARCHA 
+* docker rmi -f bf756fb1ae6 ELIMINA LAS IMAGENES DE FORMA FORZOSA SI ESTAN EJECUTANDOCE 
+* docker rm -f $(docker ps -qa) SIRVE PARA BORRAR TODOS LOS PROCESOS DOCKER
+
+liks suprapixel 
+https://www.youtube.com/watch?v=rFn5I-BnMCw
+https://www.youtube.com/watch?v=zV2J05GTxOs
+https://www.youtube.com/watch?v=rFn5I-BnMCw
+
+
+INSTALACION DE DRIVES CUDA PARA NVIDIA (IMPORTANTE CAMBIAR AL DRIVER GRAFICO GENERICO QUE PROPORCIONA LINUX)
+https://developer.nvidia.com/cuda-toolkit-archive
+INSTALACION ESPECIFICA PARA LA 1060 CON UBUNU 16.04
+https://developer.nvidia.com/cuda-11.0-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1604&target_type=runfilelocal
+
+VAMOS DE NUEVO CAMBIAR AL DRIVER DE NVIDIA 
+Y SEGUIR LOS PASOS DEL VIDEO 
+LUEGO INSTALAR DOCKER GPU
+https://medium.com/@christoph.schranz/set-up-your-own-gpu-based-jupyterlab-e0d45fcacf43
+
+NO TIENE debconf: delaying package configuration, since apt-utils is not installed
+
+
+*************************************
+HERRAMIENTA PARA ELIMINAR REPOSITORIOS UBUNTU
+ppa purge; ELIMINA LOS REPOSITORIOS INSTALADOS POR EL USUARIO URL:https://www.ubuntizando.com/limpiando-repositorios-ppa-en-ubuntu/
+sudo ppa purge ppa:nombre_ppa
+COMANDO
+
+*************************************
+COSAS A TOMAR EN CUENTA LOS VIDEOS QUE VAMOS A USAR PARA EL ENTRENAMIENTO DEBEN SER DE UNA CALIDAD BAJA PORQUE TOMA DEMASIADO TIEMPO EL PROCESO DE DETECCION DE LOS ROSTROS 
+* EL PROCESOS DE CAMARA FALSA SUELE FALLAR PARA ELLO SE RECOMIENDA HACER UN (make clean) al programa para que vuelva a funcionar

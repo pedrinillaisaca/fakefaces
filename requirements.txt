@@ -7,7 +7,7 @@ dlib
 face_recognition
 youtube-dl
 moviepy==1.0.0
-numpy==1.14.0
+numpy==1.15.1
 tqdm
 pydot
 graphviz

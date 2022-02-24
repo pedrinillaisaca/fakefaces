@@ -33,7 +33,8 @@ class FaceIt:
     PERSON_PATH = 'data/persons'
     PROCESSED_PATH = 'data/processed'
     OUTPUT_PATH = 'data/output'
-    MODEL_PATH = 'models'
+    MODEL_PATH = '
+models'
     MODELS = {}
 
     @classmethod
@@ -188,13 +189,6 @@ class FaceIt:
     def train(self, use_gan = False):
         # Setup directory structure for model, and create one director for person_a faces, and
         # another for person_b faces containing symlinks to all faces.
-        import tensorflow as tf
-        import keras.backend.tensorflow_backend as K
-        config = tf.ConfigProto()
-        config.gpu_options.allow_growth = True
-        config.gpu_options.visible_device_list="0"
-        K.set_session(tf.Session(config=config))
-        
         if not os.path.exists(self._model_path(use_gan)):
             os.makedirs(self._model_path(use_gan))
 
@@ -204,26 +198,17 @@ class FaceIt:
         for person in self._people:
             os.makedirs(self._model_person_data_path(person))
         self._process_media(self._symlink_faces_for_model)
-        #pedro enviando parametros iniciales
+
         self._faceswap.train(self._model_person_data_path(self._person_a), self._model_person_data_path(self._person_b), self._model_path(use_gan), use_gan)
 
     def convert(self, video_file, swap_model = False, duration = None, start_time = None, use_gan = False, face_filter = False, photos = True, crop_x = None, width = None, side_by_side = False, live=False, webcam=False):
         # Magic incantation to not have tensorflow blow up with an out of memory error.
-        """"""
         import tensorflow as tf
         import keras.backend.tensorflow_backend as K
         config = tf.ConfigProto()
         config.gpu_options.allow_growth = True
         config.gpu_options.visible_device_list="0"
         K.set_session(tf.Session(config=config))
-
-        """import tensorflow as tf
-        gpus = tf.config.experimental.list_physical_devices('GPU')
-        tf.config.experimental.set_memory_growth(gpus[0], True)
-        import tensorflow as tf
-        import keras.backend.tensorflow_backend as K
-        k.set_session(tf)"""
-        
 
         # Load model
         model_name = "Original"
@@ -324,7 +309,7 @@ class FaceIt:
         if not photos:
             # Process video; start loading the video clip
             video = VideoFileClip(media_path)
-           
+
             # If a duration is set, trim clip
             if duration:
                 video = video.subclip(start_time, start_time + duration)
@@ -388,39 +373,38 @@ class FaceSwapInterface:
         self._run_script(args_str)
 
     def train(self, input_a_dir, input_b_dir, model_dir, gan = False):
-
-        import tensorflow as tf
-        import keras.backend.tensorflow_backend as K
-        config = tf.ConfigProto()
-        config.gpu_options.allow_growth = True
-        config.gpu_options.visible_device_list="0"
-        K.set_session(tf.Session(config=config))
-
         model_type = "Original"
         if gan:
             model_type = "GAN"
-        print("ESTAMOS USANDO EL MODELO QUE TIENE PARAMETROS SUBPARSER  B=====D")
         train = TrainingProcessor(
             self._subparser, "train", "This command trains the model for the two faces A and B.")
         args_str = "train --input-A {} --input-B {} --model-dir {} --trainer {} --batch-size {} --write-image -p"
-        #AQUI ESTA OTRO PUTO BATCHSIZE pedro illisaca
-        args_str = args_str.format(input_a_dir, input_b_dir, model_dir, model_type,16)
+        args_str = args_str.format(input_a_dir, input_b_dir, model_dir, model_type, 512)
         self._run_script(args_str)
 
     def _run_script(self, args_str):
-        import tensorflow as tf
-        import keras.backend.tensorflow_backend as K
-        config = tf.ConfigProto()
-        config.gpu_options.allow_growth = True
-        config.gpu_options.visible_device_list="0"
-        K.set_session(tf.Session(config=config))
         args = self._parser.parse_args(args_str.split(' '))
         args.func(args)
 
 
 if __name__ == '__main__':
-    faceit = FaceIt('ped_to_pix', 'ped', 'pix')
-    
+    #faceit = FaceIt('ale_to_oliver', 'ale', 'oliver')
+     faceit = FaceIt('ped_to_pix', 'ped', 'pix')
+
+"""
+
+    faceit.add_video('ale', 'aleweb.webm')
+    faceit.add_video('ale', 'ale.mp4')
+    faceit.add_video('ale', 'myvideo2.webm')
+    faceit.add_video('ale', 'aleweb2.webm')
+
+    faceit.add_video('oliver', 'oliver_trumpcard.mp4', 'https://www.youtube.com/watch?v=JlxQ3IUWT0I')
+    faceit.add_video('oliver', 'oliver_taxreform.mp4', 'https://www.youtube.com/watch?v=g23w7WPSaU8')
+    faceit.add_video('oliver', 'oliver_zazu.mp4', 'https://www.youtube.com/watch?v=Y0IUPwXSQqg')
+    faceit.add_video('oliver', 'oliver_pastor.mp4', 'https://www.youtube.com/watch?v=mUndxpbufkg')
+    faceit.add_video('oliver', 'oliver_cookie.mp4', 'https://www.youtube.com/watch?v=H916EVndP_A')
+    faceit.add_video('oliver', 'oliver_lorelai.mp4', 'https://www.youtube.com/watch?v=G1xP2f1_1Jg')
+"""
     faceit.add_video('ped', 'myvideo1.webm')
     faceit.add_video('ped', 'myvideo2.webm')
     faceit.add_video('ped', 'myvideo3.webm')
@@ -428,6 +412,8 @@ if __name__ == '__main__':
 
     faceit.add_video('pix', 'pixel1.mp4', 'https://www.youtube.com/watch?v=rFn5I-BnMCw')
     faceit.add_video('pix', 'pixel2.mp4', 'https://www.youtube.com/watch?v=zV2J05GTxOs')
+    faceit.add_video('pix', 'pixel3.mp4', 'https://www.youtube.com/watch?v=rFn5I-BnMCw')
+    
 
     FaceIt.add_model(faceit)
     parser = argparse.ArgumentParser()
