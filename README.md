@@ -13,6 +13,10 @@ This code is based on the library [deepfakes/faceswap](https://github.com/deepfa
 
 # Setup
 
+
+
+# FALA PONER EN EL DIRECTORIO PRINCIPAL LA CARPETA data/ Y models/
+
 ## Requirements
 This has been tested on **Ubuntu 16.04 with a Titan X (Pascal) GPU**.
 You will need the following to make it work:
